@@ -957,6 +957,103 @@
     .cta-banner { padding: 80px 32px; }
     footer { padding: 60px 32px 32px; }
   }
+
+  /* ── LIGHTBOX MODAL ── */
+  #lightbox-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(15, 15, 15, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  #lightbox-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .lightbox-content {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #lightbox-img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.3s;
+    z-index: 2;
+  }
+
+  .lightbox-close:hover {
+    background: rgba(255,255,255,0.3);
+  }
+
+  .lightbox-btn-wrap {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: none; /* Let clicks pass through empty space */
+  }
+
+  .btn-whatsapp-enquire {
+    pointer-events: auto; /* Re-enable clicks strictly on the button */
+    background: #25D366;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    transition: transform 0.3s, background 0.3s;
+  }
+
+  .btn-whatsapp-enquire:hover {
+    background: #1ebc5a;
+    transform: translateY(-2px);
+  }
+
+  .btn-whatsapp-enquire svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
 </style>
 </head>
 <body>
@@ -1061,6 +1158,34 @@
   </div>
 </footer>
 
+<!-- LIGHTBOX MODAL ELEMENT -->
+<div id="lightbox-modal">
+  <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+  <div class="lightbox-content">
+    <img id="lightbox-img" src="" alt="Saree Zoom">
+    <div class="lightbox-btn-wrap">
+      <a id="lightbox-wa-btn" href="#" target="_blank" class="btn-whatsapp-enquire">
+        <svg viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+        </svg>
+        Enquire
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openLightbox(imgSrc, waLink) {
+    document.getElementById('lightbox-img').src = imgSrc;
+    document.getElementById('lightbox-wa-btn').href = waLink;
+    document.getElementById('lightbox-modal').classList.add('active');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox-modal').classList.remove('active');
+  }
+</script>
+
 <script>
   // Scroll animations
   const observer = new IntersectionObserver((entries) => {
@@ -1109,13 +1234,14 @@
       
       const card = document.createElement('div');
       card.className = 'col-card fade-up visible'; 
+      card.onclick = () => openLightbox(data.imageUri, waLink);
       
       card.innerHTML = `
         <div class="col-card-bg" style="background-image: url('${data.imageUri}'); background-size: cover; background-position: center;"></div>
         <div class="col-card-overlay"></div>
         <div class="col-card-shimmer"></div>
         <div class="col-card-content" style="text-align: center;">
-          <a href="${waLink}" target="_blank" class="btn-outline-light" style="display:inline-block; border-color: rgba(250,247,242,0.8); padding: 12px 24px; font-weight: bold; cursor: pointer; text-decoration: none; backdrop-filter: blur(4px); background: rgba(0,0,0,0.5);">Click to know price</a>
+          <!-- Content removed: Pure visual hover experience -->
         </div>
       `;
       grid.appendChild(card);
