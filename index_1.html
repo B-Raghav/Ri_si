@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riva Silks — Luxury Sarees</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --gold-dark: #8B6A35;
+    --cream: #FAF7F2;
+    --dark: #1A1410;
+    --dark2: #2C2418;
+    --text: #3D3020;
+    --text-muted: #8A7560;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(250, 247, 242, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+    transition: padding 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--dark);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dark);
+    border: 1px solid var(--gold);
+    padding: 10px 24px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--cream);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+    position: relative;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; right: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+
+  .hero-tag {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 7vw, 96px);
+    font-weight: 300;
+    line-height: 0.95;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 32px);
+    font-weight: 300;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 40px;
+    line-height: 1.3;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text-muted);
+    max-width: 420px;
+    margin-bottom: 52px;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .btn-primary {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 16px 40px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .btn-primary:hover::after { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-secondary {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s;
+  }
+
+  .btn-secondary::after {
+    content: '→';
+    transition: transform 0.3s;
+  }
+
+  .btn-secondary:hover { color: var(--gold); }
+  .btn-secondary:hover::after { transform: translateX(4px); }
+
+  .hero-stats {
+    margin-top: 72px;
+    display: flex;
+    gap: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(201, 169, 110, 0.2);
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--dark);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ── HERO RIGHT ── */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    background: var(--dark2);
+  }
+
+  .hero-visual {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Decorative silk pattern */
+  .silk-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(201,169,110,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 80%, rgba(139,106,53,0.2) 0%, transparent 50%);
+  }
+
+  .silk-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 30px,
+        rgba(201,169,110,0.04) 30px,
+        rgba(201,169,110,0.04) 31px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 30px,
+        rgba(201,169,110,0.04) 30px,
+        rgba(201,169,110,0.04) 31px
+      );
+  }
+
+  .hero-centerpiece {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .mandala {
+    width: 320px;
+    height: 320px;
+    margin: 0 auto 32px;
+    position: relative;
+    animation: slowspin 40s linear infinite;
+  }
+
+  @keyframes slowspin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    width: 120px;
+    height: 120px;
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(26,20,16,0.6);
+    backdrop-filter: blur(8px);
+    animation: badge-spin 20s linear infinite;
+  }
+
+  @keyframes badge-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-badge-inner {
+    animation: badge-spin-reverse 20s linear infinite;
+  }
+
+  @keyframes badge-spin-reverse {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+
+  .hero-badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .hero-badge-text {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--dark);
+    padding: 18px 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(201,169,110,0.2);
+    border-bottom: 1px solid rgba(201,169,110,0.2);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 25s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-item {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 0 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .marquee-item::after {
+    content: '✦';
+    font-size: 8px;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 120px 80px; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--dark);
+    margin-bottom: 24px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ── COLLECTIONS ── */
+  .collections { background: var(--cream); }
+
+  .collections-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 72px;
+  }
+
+  .collections-header p {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 360px;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .view-all {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 4px;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .view-all:hover { color: var(--dark); border-color: var(--dark); }
+
+  .collections-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 2px;
+  }
+
+  .col-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--dark2);
+  }
+
+  .col-card:first-child {
+    grid-row: 1 / 3;
+    min-height: 640px;
+  }
+
+  .col-card:not(:first-child) {
+    min-height: 316px;
+  }
+
+  .col-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Silk-like gradient backgrounds per card */
+  .col-card:nth-child(1) .col-card-bg {
+    background: linear-gradient(135deg, #3D2B1F 0%, #6B4226 30%, #C9893A 60%, #8B5E3C 100%);
+  }
+  .col-card:nth-child(2) .col-card-bg {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #4a3f6b 80%, #9b72cf 100%);
+  }
+  .col-card:nth-child(3) .col-card-bg {
+    background: linear-gradient(135deg, #1f3a2a 0%, #2d6a4f 40%, #52b788 80%, #95d5b2 100%);
+  }
+  .col-card:nth-child(4) .col-card-bg {
+    background: linear-gradient(135deg, #3d0000 0%, #800000 40%, #cc2929 70%, #e87070 100%);
+  }
+  .col-card:nth-child(5) .col-card-bg {
+    background: linear-gradient(135deg, #1a1200 0%, #3d2e00 40%, #8b6914 70%, #d4a017 100%);
+  }
+
+  .col-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%);
+  }
+
+  /* Silk weave texture overlay */
+  .col-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.015) 0px,
+        rgba(255,255,255,0.015) 1px,
+        transparent 1px,
+        transparent 6px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.015) 0px,
+        rgba(255,255,255,0.015) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+    transition: opacity 0.4s;
+  }
+
+  .col-card:hover .col-card-bg { transform: scale(1.06); }
+
+  .col-card-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 36px 32px;
+    z-index: 2;
+    transform: translateY(8px);
+    transition: transform 0.4s;
+  }
+
+  .col-card:hover .col-card-content { transform: translateY(0); }
+
+  .col-card-tag {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+
+  .col-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  .col-card:first-child .col-card-name { font-size: 44px; }
+
+  .col-card-link {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .col-card:hover .col-card-link { opacity: 1; }
+  .col-card-link::after { content: '→'; }
+
+  /* Shimmer effect on cards */
+  .col-card-shimmer {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0s;
+  }
+
+  .col-card:hover .col-card-shimmer {
+    transform: translateX(100%);
+    transition: transform 0.7s ease;
+  }
+
+  /* ── WHY US ── */
+  .why {
+    background: var(--dark);
+    color: var(--cream);
+  }
+
+  .why .section-title { color: var(--cream); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 80px;
+  }
+
+  .why-card {
+    padding: 48px 36px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,169,110,0.1);
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .why-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,169,110,0.08), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .why-card:hover { border-color: rgba(201,169,110,0.3); }
+  .why-card:hover::before { opacity: 1; }
+
+  .why-icon {
+    font-size: 28px;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .why-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: rgba(201,169,110,0.15);
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    line-height: 1;
+  }
+
+  .why-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--gold-light);
+    margin-bottom: 16px;
+  }
+
+  .why-desc {
+    font-size: 13px;
+    line-height: 1.9;
+    color: rgba(250,247,242,0.5);
+    font-weight: 300;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--cream); }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 72px;
+  }
+
+  .testi-card {
+    padding: 48px 40px;
+    border: 1px solid rgba(201,169,110,0.2);
+    position: relative;
+    transition: all 0.4s;
+    background: white;
+  }
+
+  .testi-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.08);
+  }
+
+  .testi-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    color: var(--gold-light);
+    line-height: 0.5;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .testi-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .testi-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: white;
+    font-style: italic;
+  }
+
+  .testi-name {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--dark);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .testi-loc {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--dark2);
+    padding: 100px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(201,169,110,0.03) 0px, rgba(201,169,110,0.03) 1px, transparent 1px, transparent 40px),
+      repeating-linear-gradient(-45deg, rgba(201,169,110,0.03) 0px, rgba(201,169,110,0.03) 1px, transparent 1px, transparent 40px);
+  }
+
+  .cta-banner-content { position: relative; z-index: 1; }
+
+  .cta-banner-tag {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .cta-banner-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .cta-banner-title em { color: var(--gold); font-style: italic; }
+
+  .cta-banner-sub {
+    font-size: 14px;
+    color: rgba(250,247,242,0.5);
+    margin-bottom: 48px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  .cta-banner-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--dark);
+    padding: 16px 48px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  .btn-gold:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline-light {
+    border: 1px solid rgba(250,247,242,0.3);
+    color: var(--cream);
+    padding: 16px 48px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-outline-light:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 80px 80px 40px;
+    border-top: 1px solid rgba(201,169,110,0.15);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .footer-brand-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .footer-brand-logo span { color: var(--gold); }
+
+  .footer-brand-desc {
+    font-size: 13px;
+    line-height: 1.9;
+    color: rgba(250,247,242,0.4);
+    font-weight: 300;
+    margin-bottom: 32px;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 16px;
+  }
+
+  .social-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(201,169,110,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+
+  .social-btn:hover {
+    background: var(--gold);
+    color: var(--dark);
+    border-color: var(--gold);
+  }
+
+  .footer-col-title {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: block;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: rgba(250,247,242,0.45);
+    text-decoration: none;
+    font-weight: 300;
+    transition: color 0.3s;
+    letter-spacing: 0.03em;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(250,247,242,0.25);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-copy span { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-up:nth-child(2) { transition-delay: 0.1s; }
+  .fade-up:nth-child(3) { transition-delay: 0.2s; }
+  .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    nav { padding: 20px 30px; }
+    .nav-links { display: none; }
+    section { padding: 80px 32px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 400px; }
+    .hero-left { padding: 60px 32px; }
+    .collections-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .col-card:first-child { grid-row: auto; grid-column: 1 / 3; }
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .cta-banner { padding: 80px 32px; }
+    footer { padding: 60px 32px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" style="display:flex;align-items:center;text-decoration:none;">
+    <svg height="44" viewBox="0 0 1753.59 703.12" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <style>
+          .nl1{fill:#5d242b;}
+          .nl2{font-size:210px;fill:#5d242b;font-family:CanelaText-Regular,'Canela Text';}
+          .nl3{font-size:30px;fill:#5d242b;font-family:CanelaText-Regular,'Canela Text';}
+        </style>
+      </defs>
+      <text class="nl2" transform="translate(510.3 512.67)"><tspan x="0" y="0">R</tspan><tspan letter-spacing="-0.01em" x="140.49" y="0">i</tspan><tspan letter-spacing="-0.02em" x="194.67" y="0">v</tspan><tspan x="298.2" y="0">a S</tspan><tspan x="586.73" y="0">i</tspan><tspan x="641.96" y="0">l</tspan><tspan letter-spacing="-0.02em" x="697.61" y="0">k</tspan><tspan x="805.34" y="0">s</tspan></text>
+      <text class="nl3" transform="translate(1131.95 557.64)"><tspan x="0" y="0">Threads You Trust</tspan></text>
+      <path class="nl1" d="M456.42,559.54c-52.72-93.98-92.84-119.2-92.84-119.2,38.97-12.04,89.98-30.95,89.4-114.62-.29-41.84-24.22-66.2-48.07-80.1-19.92-11.61-42.71-17.35-65.77-17.33l-137.82.12c5.19-18.68,17.7-31.22,17.7-31.22,10.39-10.4,21.82-14.81,28.05-16.69,5.53-1.24,12.74-2.17,21.03-1.41,22.14,2.02,37.1,14.63,42.76,19.99l1.15-17.04c-5.2-3-34.66-19.32-68.49-8.46-23.52,7.55-37.16,24.41-41.17,29.49-7.49,9.51-11.68,18.76-14.03,25.22h-67.4c8.31,3.31,13.42,14.92,13.42,14.92v267.65c.2,5.85,2.82,58.71,46.99,88.25,4.32,2.9,44.49,28.87,85.98,13.19,21.27-8.04,33.46-22.99,38.39-29.23,33.16-42,33.8-112.24,5.44-156.17-.97-1.5-16.92-20.68-48.78-59.08-14.19-17.07-24.29-29.19-24.29-29.19,0,0-43.84-43.26-39.55-91.98,0,0-.06-5.11,1.46-12.6h107.43c14.34-.55,39.29.45,66.4,12.87,10.25,4.69,23.46,10.89,35.41,23.87,15.74,17.13,24.46,46.13,24.28,73.28-.56,82.84-90.21,94.6-94.41,95.12,6.99-.27,24.49,18.94,24.49,18.94,0,0,59.03,80.8,84.25,123.22,25.22,42.4,62.47,32.66,62.47,32.66-28.08-5.16-53.88-54.45-53.88-54.45ZM206.75,324.24c15.63,24.05,23.97,28.07,48.52,57.65,12.01,14.47,42.29,55.24,42.82,56.23-.12-.12-.94-1.18-2.64-3.41,1.29,1.99,21.96,34.25,21.96,74.56,0,12.51-1.99,25.78-7.16,39.17-.32.8-.58,1.64-.77,2.47-1.59,7.22-12.66,47.79-59.36,52.49-51.3,5.16-77.38-36.1-77.38-36.1,0,0-13.13-16.19-20.35-54.94-.18-1-.27-2.03-.29-3.03l-1.61-258.18c-.06-9.43,7.57-17.1,17-17.1s17,7.69,17,17.06c0,.2-.02.41-.02.61-.42,11.52.99,25.5,5.61,42.17.27.99.64,1.94,1.09,2.87,3.38,6.91,8.48,16.59,15.57,27.51Z"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#wholesale">Wholesale</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://wa.me/919588948228?text=Hi! I am interested in Riva Silks sarees. Please share your catalogue." class="nav-cta">Get Catalogue</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">New Collection 2026</div>
+    <h1 class="hero-title">
+      Riva<br><em>Silks</em>
+    </h1>
+    <p class="hero-subtitle">Threads You <em>Trust</em></p>
+    <p class="hero-desc">
+      Handpicked sarees of extraordinary quality — from the looms of India's finest weavers to your doorstep. Every thread tells a story of heritage, craft, and grace.
+    </p>
+    <div class="hero-actions">
+      <a href="#collections" class="btn-primary"><span>Explore Collections</span></a>
+      <a href="#wholesale" class="btn-secondary">Wholesale Enquiry</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">500+</span>
+        <span class="stat-label">Designs</span>
+      </div>
+      <div>
+        <span class="stat-num">12+</span>
+        <span class="stat-label">Fabric Types</span>
+      </div>
+      <div>
+        <span class="stat-num">Pan India</span>
+        <span class="stat-label">Delivery</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="silk-bg"></div>
+    <div class="silk-pattern"></div>
+    <div class="hero-visual">
+      <svg class="mandala" viewBox="0 0 1753.59 703.12" xmlns="http://www.w3.org/2000/svg" style="width:85%;height:auto;animation:none;filter:brightness(0) invert(1);opacity:0.92;">
+        <text style="font-size:210px;fill:white;font-family:CanelaText-Regular,'Canela Text',Georgia,serif;" transform="translate(510.3 512.67)"><tspan x="0" y="0">Riva Silks</tspan></text>
+        <text style="font-size:30px;fill:rgba(255,255,255,0.7);font-family:CanelaText-Regular,'Canela Text',Georgia,serif;letter-spacing:0.15em;" transform="translate(1131.95 557.64)"><tspan x="0" y="0">Threads You Trust</tspan></text>
+        <path style="fill:white;" d="M456.42,559.54c-52.72-93.98-92.84-119.2-92.84-119.2,38.97-12.04,89.98-30.95,89.4-114.62-.29-41.84-24.22-66.2-48.07-80.1-19.92-11.61-42.71-17.35-65.77-17.33l-137.82.12c5.19-18.68,17.7-31.22,17.7-31.22,10.39-10.4,21.82-14.81,28.05-16.69,5.53-1.24,12.74-2.17,21.03-1.41,22.14,2.02,37.1,14.63,42.76,19.99l1.15-17.04c-5.2-3-34.66-19.32-68.49-8.46-23.52,7.55-37.16,24.41-41.17,29.49-7.49,9.51-11.68,18.76-14.03,25.22h-67.4c8.31,3.31,13.42,14.92,13.42,14.92v267.65c.2,5.85,2.82,58.71,46.99,88.25,4.32,2.9,44.49,28.87,85.98,13.19,21.27-8.04,33.46-22.99,38.39-29.23,33.16-42,33.8-112.24,5.44-156.17-.97-1.5-16.92-20.68-48.78-59.08-14.19-17.07-24.29-29.19-24.29-29.19,0,0-43.84-43.26-39.55-91.98,0,0-.06-5.11,1.46-12.6h107.43c14.34-.55,39.29.45,66.4,12.87,10.25,4.69,23.46,10.89,35.41,23.87,15.74,17.13,24.46,46.13,24.28,73.28-.56,82.84-90.21,94.6-94.41,95.12,6.99-.27,24.49,18.94,24.49,18.94,0,0,59.03,80.8,84.25,123.22,25.22,42.4,62.47,32.66,62.47,32.66-28.08-5.16-53.88-54.45-53.88-54.45ZM206.75,324.24c15.63,24.05,23.97,28.07,48.52,57.65,12.01,14.47,42.29,55.24,42.82,56.23-.12-.12-.94-1.18-2.64-3.41,1.29,1.99,21.96,34.25,21.96,74.56,0,12.51-1.99,25.78-7.16,39.17-.32.8-.58,1.64-.77,2.47-1.59,7.22-12.66,47.79-59.36,52.49-51.3,5.16-77.38-36.1-77.38-36.1,0,0-13.13-16.19-20.35-54.94-.18-1-.27-2.03-.29-3.03l-1.61-258.18c-.06-9.43,7.57-17.1,17-17.1s17,7.69,17,17.06c0,.2-.02.41-.02.61-.42,11.52.99,25.5,5.61,42.17.27.99.64,1.94,1.09,2.87,3.38,6.91,8.48,16.59,15.57,27.51Z"/>
+      </svg>
+
+      <!-- Floating saree type labels -->
+      <div style="position:absolute; top:20%; left:8%; color:rgba(201,169,110,0.7); font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; letter-spacing:0.1em;">Kanjivaram</div>
+      <div style="position:absolute; top:35%; right:8%; color:rgba(201,169,110,0.7); font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; letter-spacing:0.1em;">Banarasi</div>
+      <div style="position:absolute; bottom:30%; left:10%; color:rgba(201,169,110,0.7); font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; letter-spacing:0.1em;">Chanderi</div>
+      <div style="position:absolute; bottom:22%; right:10%; color:rgba(201,169,110,0.7); font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; letter-spacing:0.1em;">Organza</div>
+    </div>
+
+    <div class="hero-badge">
+      <div class="hero-badge-inner">
+        <span class="hero-badge-num">100%</span>
+        <span class="hero-badge-text">Pure<br>Silk</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Kanjivaram</span>
+    <span class="marquee-item">Banarasi</span>
+    <span class="marquee-item">Chanderi</span>
+    <span class="marquee-item">Organza</span>
+    <span class="marquee-item">Georgette</span>
+    <span class="marquee-item">Chiffon</span>
+    <span class="marquee-item">Tussar</span>
+    <span class="marquee-item">Mysore Silk</span>
+    <span class="marquee-item">Kanjivaram</span>
+    <span class="marquee-item">Banarasi</span>
+    <span class="marquee-item">Chanderi</span>
+    <span class="marquee-item">Organza</span>
+    <span class="marquee-item">Georgette</span>
+    <span class="marquee-item">Chiffon</span>
+    <span class="marquee-item">Tussar</span>
+    <span class="marquee-item">Mysore Silk</span>
+  </div>
+</div>
+
+<!-- COLLECTIONS -->
+<section class="collections" id="collections">
+  <div class="collections-header">
+    <div>
+      <div class="section-label">Our Collections</div>
+      <h2 class="section-title">Crafted for the <em>Discerning</em></h2>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:16px;">
+      <p>Each saree is a masterwork — woven by artisans who have inherited the craft through generations.</p>
+      <a href="#" class="view-all">View All Collections</a>
+    </div>
+  </div>
+
+  <div class="collections-grid">
+    <div class="col-card fade-up">
+      <div class="col-card-bg"></div>
+      <div class="col-card-overlay"></div>
+      <div class="col-card-shimmer"></div>
+      <div class="col-card-content">
+        <div class="col-card-tag">Bestseller</div>
+        <div class="col-card-name">Kanjivaram<br>Silks</div>
+        <a href="#" class="col-card-link">Explore</a>
+      </div>
+    </div>
+    <div class="col-card fade-up">
+      <div class="col-card-bg"></div>
+      <div class="col-card-overlay"></div>
+      <div class="col-card-shimmer"></div>
+      <div class="col-card-content">
+        <div class="col-card-tag">Heritage Weave</div>
+        <div class="col-card-name">Banarasi</div>
+        <a href="#" class="col-card-link">Explore</a>
+      </div>
+    </div>
+    <div class="col-card fade-up">
+      <div class="col-card-bg"></div>
+      <div class="col-card-overlay"></div>
+      <div class="col-card-shimmer"></div>
+      <div class="col-card-content">
+        <div class="col-card-tag">New Season</div>
+        <div class="col-card-name">Chanderi</div>
+        <a href="#" class="col-card-link">Explore</a>
+      </div>
+    </div>
+    <div class="col-card fade-up">
+      <div class="col-card-bg"></div>
+      <div class="col-card-overlay"></div>
+      <div class="col-card-shimmer"></div>
+      <div class="col-card-content">
+        <div class="col-card-tag">Bridal</div>
+        <div class="col-card-name">Red Label</div>
+        <a href="#" class="col-card-link">Explore</a>
+      </div>
+    </div>
+    <div class="col-card fade-up">
+      <div class="col-card-bg"></div>
+      <div class="col-card-overlay"></div>
+      <div class="col-card-shimmer"></div>
+      <div class="col-card-content">
+        <div class="col-card-tag">Limited Edition</div>
+        <div class="col-card-name">Zari Gold</div>
+        <a href="#" class="col-card-link">Explore</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="about">
+  <div class="section-label" style="color:var(--gold)">Why Riva Silks</div>
+  <h2 class="section-title">The <em>Riva</em> Promise</h2>
+
+  <div class="why-grid">
+    <div class="why-card fade-up">
+      <span class="why-num">01</span>
+      <span class="why-icon">✦</span>
+      <h3 class="why-title">Pure Authenticity</h3>
+      <p class="why-desc">Every piece is sourced directly from master weavers, with verified silk quality and authentic craftsmanship certificates.</p>
+    </div>
+    <div class="why-card fade-up">
+      <span class="why-num">02</span>
+      <span class="why-icon">◈</span>
+      <h3 class="why-title">Wholesale Pricing</h3>
+      <p class="why-desc">Direct-from-loom prices with no middlemen. Competitive bulk rates for retailers, boutiques, and resellers across India.</p>
+    </div>
+    <div class="why-card fade-up">
+      <span class="why-num">03</span>
+      <span class="why-icon">⬡</span>
+      <h3 class="why-title">Pan India Delivery</h3>
+      <p class="why-desc">Safely packed and swiftly dispatched within 24–48 hours. Reliable shipping partners ensuring timely delivery nationwide.</p>
+    </div>
+    <div class="why-card fade-up">
+      <span class="why-num">04</span>
+      <span class="why-icon">◇</span>
+      <h3 class="why-title">500+ Designs</h3>
+      <p class="why-desc">A curated catalogue spanning 12+ fabric types, with new arrivals every season — always fresh, always exquisite.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div style="text-align:center; max-width:600px; margin:0 auto;">
+    <div class="section-label" style="justify-content:center;">What Our Partners Say</div>
+    <h2 class="section-title">Trusted by <em>Thousands</em></h2>
+  </div>
+
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <span class="testi-quote">"</span>
+      <p class="testi-text">The quality of Riva Silks is unmatched. My boutique customers always ask for more — the weaves are extraordinary and the pricing makes it so easy to run a profitable business.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">P</div>
+        <div>
+          <span class="testi-name">Priya Nair</span>
+          <span class="testi-loc">Boutique Owner, Kochi</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <span class="testi-quote">"</span>
+      <p class="testi-text">I've been sourcing wholesale sarees for 8 years. Riva Silks is simply on another level — the catalogue variety is stunning and delivery is always on time, every time.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <span class="testi-name">Ravi Sharma</span>
+          <span class="testi-loc">Reseller, Jaipur</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <span class="testi-quote">"</span>
+      <p class="testi-text">The Kanjivaram collection sold out within days of listing online. Riva Silks understands what modern buyers want — timeless designs with genuine quality assurance.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">S</div>
+        <div>
+          <span class="testi-name">Sunita Mehta</span>
+          <span class="testi-loc">Online Seller, Mumbai</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner" id="wholesale">
+  <div class="cta-banner-content">
+    <span class="cta-banner-tag">Start Your Journey</span>
+    <h2 class="cta-banner-title">Ready to Partner<br>with <em>Riva Silks?</em></h2>
+    <p class="cta-banner-sub">Join hundreds of retailers across India. Get exclusive access to our wholesale catalogue.</p>
+    <div class="cta-banner-actions">
+      <a href="https://wa.me/919588948228?text=Hi! I am interested in Riva Silks sarees. Please share your catalogue." class="btn-gold">WhatsApp Us</a>
+      <a href="mailto:info@rivasilks.in" class="btn-outline-light">Email Enquiry</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-top">
+    <div>
+      <div style="margin-bottom:20px;">
+        <svg height="52" viewBox="0 0 1753.59 703.12" xmlns="http://www.w3.org/2000/svg">
+          <text style="font-size:210px;fill:#FAF7F2;font-family:CanelaText-Regular,'Canela Text',Georgia,serif;" transform="translate(510.3 512.67)"><tspan x="0" y="0">Riva Silks</tspan></text>
+          <text style="font-size:30px;fill:rgba(201,169,110,0.7);font-family:CanelaText-Regular,'Canela Text',Georgia,serif;letter-spacing:0.1em;" transform="translate(1131.95 557.64)"><tspan x="0" y="0">Threads You Trust</tspan></text>
+          <path style="fill:#FAF7F2;" d="M456.42,559.54c-52.72-93.98-92.84-119.2-92.84-119.2,38.97-12.04,89.98-30.95,89.4-114.62-.29-41.84-24.22-66.2-48.07-80.1-19.92-11.61-42.71-17.35-65.77-17.33l-137.82.12c5.19-18.68,17.7-31.22,17.7-31.22,10.39-10.4,21.82-14.81,28.05-16.69,5.53-1.24,12.74-2.17,21.03-1.41,22.14,2.02,37.1,14.63,42.76,19.99l1.15-17.04c-5.2-3-34.66-19.32-68.49-8.46-23.52,7.55-37.16,24.41-41.17,29.49-7.49,9.51-11.68,18.76-14.03,25.22h-67.4c8.31,3.31,13.42,14.92,13.42,14.92v267.65c.2,5.85,2.82,58.71,46.99,88.25,4.32,2.9,44.49,28.87,85.98,13.19,21.27-8.04,33.46-22.99,38.39-29.23,33.16-42,33.8-112.24,5.44-156.17-.97-1.5-16.92-20.68-48.78-59.08-14.19-17.07-24.29-29.19-24.29-29.19,0,0-43.84-43.26-39.55-91.98,0,0-.06-5.11,1.46-12.6h107.43c14.34-.55,39.29.45,66.4,12.87,10.25,4.69,23.46,10.89,35.41,23.87,15.74,17.13,24.46,46.13,24.28,73.28-.56,82.84-90.21,94.6-94.41,95.12,6.99-.27,24.49,18.94,24.49,18.94,0,0,59.03,80.8,84.25,123.22,25.22,42.4,62.47,32.66,62.47,32.66-28.08-5.16-53.88-54.45-53.88-54.45ZM206.75,324.24c15.63,24.05,23.97,28.07,48.52,57.65,12.01,14.47,42.29,55.24,42.82,56.23-.12-.12-.94-1.18-2.64-3.41,1.29,1.99,21.96,34.25,21.96,74.56,0,12.51-1.99,25.78-7.16,39.17-.32.8-.58,1.64-.77,2.47-1.59,7.22-12.66,47.79-59.36,52.49-51.3,5.16-77.38-36.1-77.38-36.1,0,0-13.13-16.19-20.35-54.94-.18-1-.27-2.03-.29-3.03l-1.61-258.18c-.06-9.43,7.57-17.1,17-17.1s17,7.69,17,17.06c0,.2-.02.41-.02.61-.42,11.52.99,25.5,5.61,42.17.27.99.64,1.94,1.09,2.87,3.38,6.91,8.48,16.59,15.57,27.51Z"/>
+        </svg>
+      </div>
+      <p class="footer-brand-desc">Threads You Trust. Premium silk sarees sourced from India's finest weavers. Visit us at Chickpet Cross, Bangalore or shop online at rivasilks.in.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">✦</a>
+      </div>
+    </div>
+    <div>
+      <span class="footer-col-title">Collections</span>
+      <ul class="footer-links">
+        <li><a href="#">Kanjivaram</a></li>
+        <li><a href="#">Banarasi</a></li>
+        <li><a href="#">Chanderi</a></li>
+        <li><a href="#">Organza</a></li>
+        <li><a href="#">Georgette</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-title">Company</span>
+      <ul class="footer-links">
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Wholesale</a></li>
+        <li><a href="#">Catalogue</a></li>
+        <li><a href="#">Shipping Info</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-title">Contact</span>
+      <ul class="footer-links">
+        <li><a href="mailto:info@rivasilks.in">info@rivasilks.in</a></li>
+        <li><a href="https://wa.me/919588948228?text=Hi! I am interested in Riva Silks sarees.">+91 9588948228</a></li>
+        <li><a href="#">rivasilks.in</a></li>
+        <li><a href="https://maps.google.com/?q=Swathi+Complex+Chickpet+Bangalore" target="_blank">Shop No. 304, 3rd Floor,<br>Swathi Complex,<br>Chickpet Cross,<br>Bangalore – 560053</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 <span>Riva Silks</span>. All rights reserved.</p>
+    <p class="footer-copy">Designed with care for <span>rivasilks.in</span></p>
+  </div>
+</footer>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.padding = window.scrollY > 50 ? '14px 60px' : '24px 60px';
+  });
+</script>
+</body>
+</html>
