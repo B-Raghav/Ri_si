@@ -495,22 +495,6 @@
     transition: transform 0.8s cubic-bezier(0.4,0,0.2,1);
   }
 
-  /* Silk-like gradient backgrounds per card */
-  .col-card:nth-child(1) .col-card-bg {
-    background: linear-gradient(135deg, #3D2B1F 0%, #6B4226 30%, #C9893A 60%, #8B5E3C 100%);
-  }
-  .col-card:nth-child(2) .col-card-bg {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #4a3f6b 80%, #9b72cf 100%);
-  }
-  .col-card:nth-child(3) .col-card-bg {
-    background: linear-gradient(135deg, #1f3a2a 0%, #2d6a4f 40%, #52b788 80%, #95d5b2 100%);
-  }
-  .col-card:nth-child(4) .col-card-bg {
-    background: linear-gradient(135deg, #3d0000 0%, #800000 40%, #cc2929 70%, #e87070 100%);
-  }
-  .col-card:nth-child(5) .col-card-bg {
-    background: linear-gradient(135deg, #1a1200 0%, #3d2e00 40%, #8b6914 70%, #d4a017 100%);
-  }
 
   .col-card-overlay {
     position: absolute;
@@ -1095,56 +1079,7 @@
   </div>
 
   <div class="collections-grid">
-    <div class="col-card fade-up">
-      <div class="col-card-bg"></div>
-      <div class="col-card-overlay"></div>
-      <div class="col-card-shimmer"></div>
-      <div class="col-card-content">
-        <div class="col-card-tag">Bestseller</div>
-        <div class="col-card-name">Kanjivaram<br>Silks</div>
-        <a href="#" class="col-card-link">Explore</a>
-      </div>
-    </div>
-    <div class="col-card fade-up">
-      <div class="col-card-bg"></div>
-      <div class="col-card-overlay"></div>
-      <div class="col-card-shimmer"></div>
-      <div class="col-card-content">
-        <div class="col-card-tag">Heritage Weave</div>
-        <div class="col-card-name">Banarasi</div>
-        <a href="#" class="col-card-link">Explore</a>
-      </div>
-    </div>
-    <div class="col-card fade-up">
-      <div class="col-card-bg"></div>
-      <div class="col-card-overlay"></div>
-      <div class="col-card-shimmer"></div>
-      <div class="col-card-content">
-        <div class="col-card-tag">New Season</div>
-        <div class="col-card-name">Chanderi</div>
-        <a href="#" class="col-card-link">Explore</a>
-      </div>
-    </div>
-    <div class="col-card fade-up">
-      <div class="col-card-bg"></div>
-      <div class="col-card-overlay"></div>
-      <div class="col-card-shimmer"></div>
-      <div class="col-card-content">
-        <div class="col-card-tag">Bridal</div>
-        <div class="col-card-name">Red Label</div>
-        <a href="#" class="col-card-link">Explore</a>
-      </div>
-    </div>
-    <div class="col-card fade-up">
-      <div class="col-card-bg"></div>
-      <div class="col-card-overlay"></div>
-      <div class="col-card-shimmer"></div>
-      <div class="col-card-content">
-        <div class="col-card-tag">Limited Edition</div>
-        <div class="col-card-name">Zari Gold</div>
-        <a href="#" class="col-card-link">Explore</a>
-      </div>
-    </div>
+    <!-- Live injected by Firebase -->
   </div>
 </section>
 
@@ -1306,6 +1241,51 @@
   window.addEventListener('scroll', () => {
     const nav = document.querySelector('nav');
     nav.style.padding = window.scrollY > 50 ? '14px 60px' : '24px 60px';
+  });
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+  import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD5ZSBYkE1PGZLnzqTBqN6u4FzpvTUh4A0",
+    authDomain: "saree-stock.firebaseapp.com",
+    projectId: "saree-stock",
+    storageBucket: "saree-stock.firebasestorage.app",
+    messagingSenderId: "355254820657",
+    appId: "1:355254820657:web:7fc184bbb8264272745a10",
+    measurementId: "G-4NLZFQKHC1"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const q = query(collection(db, "sarees"), orderBy("createdAt", "desc"));
+  
+  onSnapshot(q, (snapshot) => {
+    const grid = document.querySelector('.collections-grid');
+    grid.innerHTML = '';
+    
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      const code = data.sellingCode || data.id;
+      const textParam = encodeURIComponent(`Hi! I would like to know the price of Saree: ${code}`);
+      const waLink = `https://wa.me/919588948228?text=${textParam}`;
+      
+      const card = document.createElement('div');
+      card.className = 'col-card fade-up visible'; 
+      
+      card.innerHTML = `
+        <div class="col-card-bg" style="background-image: url('${data.imageUri}'); background-size: cover; background-position: center;"></div>
+        <div class="col-card-overlay"></div>
+        <div class="col-card-shimmer"></div>
+        <div class="col-card-content" style="text-align: center;">
+          <a href="${waLink}" target="_blank" class="btn-outline-light" style="display:inline-block; border-color: rgba(250,247,242,0.8); padding: 12px 24px; font-weight: bold; cursor: pointer; text-decoration: none; backdrop-filter: blur(4px); background: rgba(0,0,0,0.5);">Click to know price</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
   });
 </script>
 </body>
